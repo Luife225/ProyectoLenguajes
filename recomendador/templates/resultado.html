@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Resultado de la Recomendación</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f0f2f5;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        .container {
+            max-width: 800px;
+            margin-top: 50px;
+        }
+        .card {
+            margin-bottom: 20px;
+        }
+        .card-header {
+            background-color: #007bff;
+            color: white;
+            font-weight: bold;
+        }
+        .highlight {
+            background-color: #fff3cd;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="text-center mb-4">🎯 Resultados de tu Recomendación</h1>
+
+        {% if videojuegos %}
+            <div class="card">
+                <div class="card-header">
+                    Videojuegos Filtrados
+                </div>
+                <ul class="list-group list-group-flush">
+                    {% for juego in videojuegos %}
+                        <li class="list-group-item">
+                            <strong>{{ juego.nombre }}</strong> — {{ juego.genero }} — {{ juego.plataforma }} — Puntuación: {{ juego.puntuacion }}
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% else %}
+            <div class="alert alert-warning" role="alert">
+                No se encontraron videojuegos que coincidan con tus preferencias.
+            </div>
+        {% endif %}
+
+        {% if destacados %}
+            <div class="card mt-4">
+                <div class="card-header">
+                    ⭐ Recomendaciones Destacadas (Puntuación > 9)
+                </div>
+                <ul class="list-group list-group-flush">
+                    {% for nombre in destacados %}
+                        <li class="list-group-item highlight">
+                            <strong>{{ nombre }}</strong>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
+
+        <div class="text-center mt-4">
+            <a href="/" class="btn btn-secondary">Volver</a>
+        </div>
+    </div>
+</body>
+</html>
