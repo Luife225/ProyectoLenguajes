@@ -33,12 +33,15 @@
         {% if videojuegos %}
             <div class="card">
                 <div class="card-header">
-                    Videojuegos Filtrados
+                    Videojuegos Encontrados
                 </div>
                 <ul class="list-group list-group-flush">
                     {% for juego in videojuegos %}
                         <li class="list-group-item">
-                            <strong>{{ juego.nombre }}</strong> — {{ juego.genero }} — {{ juego.plataforma }} — Puntuación: {{ juego.puntuacion }}
+                            <strong>{{ juego.name }}</strong> — 
+                            Generos: {% for g in juego.genres %}{{ g.name }}{% if not forloop.last %}, {% endif %}{% endfor %} — 
+                            Plataformas: {% for p in juego.platforms %}{{ p.platform.name }}{% if not forloop.last %}, {% endif %}{% endfor %} — 
+                            Puntuación: {{ juego.rating }}
                         </li>
                     {% endfor %}
                 </ul>
@@ -52,7 +55,7 @@
         {% if destacados %}
             <div class="card mt-4">
                 <div class="card-header">
-                    ⭐ Recomendaciones Destacadas (Puntuación > 9)
+                    ⭐ Recomendaciones Destacadas (Puntuación >= 4)
                 </div>
                 <ul class="list-group list-group-flush">
                     {% for nombre in destacados %}
@@ -65,7 +68,7 @@
         {% endif %}
 
         <div class="text-center mt-4">
-            <a href="/" class="btn btn-secondary">Volver</a>
+            <a href="{% url 'index' %}" class="btn btn-secondary">Volver al Recomendador</a>
         </div>
     </div>
 </body>

@@ -1,9 +1,6 @@
-def filtrar_videojuegos(videojuegos, genero, plataforma, dificultad):
-    filtrados = videojuegos
+def filtrar_videojuegos(videojuegos, genero=None, plataforma=None):
     if genero:
-        filtrados = filter(lambda v: genero.lower() in v.genero.lower(), filtrados)
+        videojuegos = list(filter(lambda v: any(g['name'].lower() == genero.lower() for g in v.get('genres', [])), videojuegos))
     if plataforma:
-        filtrados = filter(lambda v: plataforma.lower() in v.plataforma.lower(), filtrados)
-    if dificultad:
-        filtrados = filter(lambda v: dificultad.lower() in v.dificultad.lower(), filtrados)
-    return list(filtrados)
+        videojuegos = list(filter(lambda v: any(p['platform']['name'].lower() == plataforma.lower() for p in v.get('platforms', [])), videojuegos))
+    return videojuegos
